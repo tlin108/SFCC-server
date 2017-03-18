@@ -51,8 +51,22 @@ app.get('/', function (req, res) {
   res.send('Hello Tom!')
 })
 
+// display the list of people
 app.get('/people', function (req, res) {
-  res.send(people);
+  res.json(people);
+})
+
+// add new person to the list of people
+app.post('/people', function (req, res) {
+})
+
+// get a person's info with given id
+app.get('/people/:id', function (req, res) {
+  res.json(people[req.params.id - 1]);
+})
+
+// delete a person's info with given id
+app.get('/people/:id', function (req, res) {
 })
 
 const port = process.env.PORT || 5000;
