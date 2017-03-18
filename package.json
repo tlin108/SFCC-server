@@ -4,12 +4,14 @@
   "description": "Server for Spotify Fellowship coding challenge",
   "main": "server.js",
   "scripts": {
+    "start": "node_modules/.bin/nodemon -L server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tung Ling Lin",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.1",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "nodemon": "^1.11.0"
   }
 }
