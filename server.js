@@ -13,7 +13,7 @@ const peopleRouter = express.Router();
 peopleController(peopleRouter, app);
 
 // database config
-const databaseUrl = process.env.DATABASE_URL;
+const databaseUrl = process.env.DB;
 mongoose.Promise = global.Promise;
 
 const port = process.env.PORT || 5000;
