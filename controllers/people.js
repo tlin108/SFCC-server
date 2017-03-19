@@ -39,7 +39,7 @@ module.exports = function(router, app) {
     }, function(err){
       if(err)
         throw err;
-      res.send('Updated User with Id ' + req.params.id);
+      res.send('Updated User with Id ' + req.body._id);
     })
   });
 
