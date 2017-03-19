@@ -40,6 +40,8 @@ const people = [{
   "favoriteCity": "New York"
 }]
 
+var People = require('../models/people');
+
 module.exports = function(router, app) {
 
   router.get('/', function (req, res) {
@@ -48,27 +50,48 @@ module.exports = function(router, app) {
 
   // display the list of people
   router.get('/people', function (req, res) {
-    res.json(people);
+    People.find({}).
+      sort({ createdAt: -1 }).
+      exec(function(err, posts){
+        if(err)
+          throw err;
+        res.json(posts);
+      });  
   });
 
   // add new person to the list of people
   router.post('/people', function (req, res) {
-    var person = {
-      "id": people.length,
-      "name": req.body.name,
-      "favoriteCity": req.body.favoriteCity
-    }
-    people.push(person);
-    res.json(people);
+    var newPerson = new People({
+      name: req.body.name,
+      favoriteCity: req.body.favoriteCity
+    });
+    newPerson.save(function(err){
+      if(err)
+        throw err;
+      res.send('Success');    
+    });
   });
 
   // get a person's info with given id
   router.get('/people/:id', function (req, res) {
-    res.json(people[req.params.id - 1]);
+    People.findById({
+      _id: req.params.id
+    }, function (err, people){
+      if(err)
+        throw err;
+      res.json(people);
+    }) 
   });
 
   // delete a person's info with given id
   router.delete('/people/:id', function (req, res) {
+    People.remove({
+      _id: req.params.id
+    }, function(err,post){
+      if(err)
+        throw err;
+      res.json('Deleted!')
+    })
   });
 
   app.use('/api', router);
