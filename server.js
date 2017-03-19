@@ -13,7 +13,7 @@ const peopleRouter = express.Router();
 peopleController(peopleRouter, app);
 
 // database config
-const databaseUrl = process.env.DB || 'mongodb://tlinBb:NKFMktKIVBJJLQk4@cluster0-shard-00-00-jzd1t.mongodb.net:27017,cluster0-shard-00-01-jzd1t.mongodb.net:27017,cluster0-shard-00-02-jzd1t.mongodb.net:27017/Chaf?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
+const databaseUrl = process.env.DB;
 mongoose.Promise = global.Promise;
 
 const port = process.env.PORT || 5000;
