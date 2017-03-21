@@ -4,24 +4,28 @@ const mongoose = require('mongoose');
 
 const peopleController = require('./controllers/people');
 
+// app config
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( {extended: true }));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  next();
+});
 
+// Router config
 const peopleRouter = express.Router();
-
 peopleController(peopleRouter, app);
 
 // database config
-const databaseUrl = process.env.DB || 'mongodb://tlinBb:NKFMktKIVBJJLQk4@cluster0-shard-00-00-jzd1t.mongodb.net:27017,cluster0-shard-00-01-jzd1t.mongodb.net:27017,cluster0-shard-00-02-jzd1t.mongodb.net:27017/SpotifyCC?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
-mongoose.Promise = global.Promise;
-
+const databaseUrl = process.env.DB;
 const port = process.env.PORT || 5000;
 
 //
 // Launch the server
 // -----------------------------------------------------------------------------
-/* eslint-disable no-console */
 mongoose.connect(databaseUrl, (err) => {
   if (err) {
     console.log(`DB CONNECTION FAIL: ${err}`);
@@ -31,4 +35,3 @@ mongoose.connect(databaseUrl, (err) => {
     });
   }
 });
-/* eslint-enable no-console */
